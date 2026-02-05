@@ -1,3 +1,40 @@
+body {
+  background-color: #d9cbb8;
+}
+
+h1 {
+  font-family: "Bungee", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 input {
   border-radius: 5px;
+  border: 2px solid black;
+}
+
+.income-entry {
+  max-width: 600px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.field label {
+  width: 120px;
+}
+
+@media (max-width: 600px) {
+  .field {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .field label {
+    width: auto;
+    margin-bottom: 5px;
+  }
 }

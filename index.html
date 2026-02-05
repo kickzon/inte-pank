@@ -6,25 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>fed25d-js-inl-2-budget-app-kickzon</title>
     <link rel="stylesheet" href="src/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div>
+
+    <h1>💸 Inte Pank 💸</h1>
+    <!-- <span>för dig som vill ha råd med mer än nudlar</span> -->
+
+    <div class="income-entry">
       <h3>Inkomster:</h3>
-      Belopp:
-      <input type="number" id="income" />
-      Beskrivning:
-      <input type="text" />
+        <div class="field">
+          <label for="income">Belopp:</label>
+          <input type="number" id="income" placeholder="Belopp"/>
+        </div>
+
+        <div class="field">
+          <label for="description">Beskrivning:</label>
+          <input type="text" placeholder="Beskrivning"/>
+        </div>
       <button id="addIncomeBtn">Lägg till</button>
     </div>
 
-    <div>
+    <div class="expenses-entry">
       <h3>Utgifter:</h3>
-      Belopp:
-      <input type="number" id="expenses" />
-      Beskrivning:
-      <input type="text" />
+        <div class="field">
+          <label for="expenses">Belopp:</label>
+          <input type="number" id="expenses" placeholder="Belopp" />
+        </div>
+
+        <div class="field">
+          <label for="description">Beskrivning:</label>
+          <input type="text" placeholder="Beskrivning" />
+        </div>
       <button id="addExpensesBtn">Lägg till</button>
     </div>
+
+    <div id="data"></div>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
