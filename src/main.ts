@@ -1,6 +1,7 @@
 //@ts-nocheck
 
 import './style.css';
+import categories from './data/categories.json';
 
 let myData = [];
 /***************************************************/
@@ -17,7 +18,7 @@ function checkInputConfirm(e) {
 
   myData.push({
     text: input.value,
-  })
+  });
 }
 
 

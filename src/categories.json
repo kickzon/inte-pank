@@ -1,0 +1,34 @@
+{
+    "income": [
+        {
+            "text": "Lön",
+            "value": "salary"
+        }
+    ],
+    "expenses": [
+        {
+            "text": "Hyra",
+            "value": "rent"
+        },
+        {
+            "text": "Mat",
+            "value": "food"
+        },
+        {
+            "text": "Transport",
+            "value": "transportation"
+        },
+        {
+            "text": "Nöjen",
+            "value": "entertainment"
+        },
+        {
+            "text": "Övrigt",
+            "value": "other"
+        },
+        {
+            "text": "sparande",
+            "value": "savings"
+        }
+    ]
+}
