@@ -43,6 +43,12 @@ input {
   width: 120px;
 }
 
+.field select {
+  width: 120px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
 @media (max-width: 600px) {
   .field {
     flex-direction: column;

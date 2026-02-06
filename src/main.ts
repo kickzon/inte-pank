@@ -144,7 +144,7 @@ function renderData() {
   myData.forEach((item) => {
     html += `
       <div class="data-item">
-        <span>${item.description}: ${item.amount}</span>
+        <span>${item.description}: ${item.amount} kr</span>
         <button class="delete-btn" data-id="${myData.indexOf(item)}">Ta bort</button>
       </div>
     `;
@@ -166,7 +166,26 @@ function deleteItem(e) {
 
   saveDataToLocalStorage();
   renderData();
+  loadDataFromLocalStorage();
 }
 
 loadDataFromLocalStorage();
 renderData();
+
+/***************************************************/
+/********************* DROPDOWN ********************/
+/***************************************************/
+
+const incomecategories = document.querySelector('#incomeType');
+if (incomecategories) {
+  categories.income.forEach((category) => {
+    incomecategories.innerHTML += `<option value="${category.value}">${category.text}</option>`;
+  });
+}
+
+const expenseCategories = document.querySelector('#expenseType');
+if (expenseCategories) {
+  categories.expenses.forEach((category) => {
+    expenseCategories.innerHTML += `<option value="${category.value}">${category.text}</option>`;
+  });
+}

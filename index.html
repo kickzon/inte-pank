@@ -17,6 +17,13 @@
     <div class="income-entry">
       <h2>Inkomster:</h2>
         <div class="field">
+          <label for="incomeType">Typ av inkomst:</label>
+          <select name="incomeType" id="incomeType" required>
+            <option value="" disabled selected>Välj kategori</option>
+          </select>
+        </div>
+
+        <div class="field">
           <label for="income">Belopp:</label>
           <input type="number" id="income" placeholder="Belopp"/>
         </div>
@@ -30,6 +37,13 @@
 
     <div class="expenses-entry">
       <h2>Utgifter:</h2>
+        <div class="field">
+          <label for="expenseType">Typ av utgift:</label>
+          <select name="expenseType" id="expenseType" required>
+            <option value="" disabled selected>Välj kategori</option>
+          </select>
+        </div>
+
         <div class="field">
           <label for="expenses">Belopp:</label>
           <input type="number" id="expenses" placeholder="Belopp" />
