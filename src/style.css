@@ -57,6 +57,18 @@ input {
   color: #c62828;
 }
 
+.positive {
+  color: #2e7d32;
+}
+
+.negative {
+  color: #c62828;
+}
+
+.zero {
+  color: #000000;
+}
+
 @media (max-width: 600px) {
   .field {
     flex-direction: column;

@@ -118,6 +118,15 @@ function updateBalance() {
 
   const balance = totalIncome - totalExpenses;
   balanceElement.textContent = `Totalt: ${balance.toLocaleString('sv-SE')} kr`;
+
+  balanceElement.classList.remove('positive', 'negative', 'zero');
+  if (balance > 0) {
+    balanceElement.classList.add('positive');
+  } else if (balance < 0) {
+    balanceElement.classList.add('negative');
+  } else {
+    balanceElement.classList.add('zero');
+  }
 }
 
 updateBalance();
