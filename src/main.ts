@@ -41,44 +41,52 @@ const addExpensesBtn = document.querySelector('#addExpensesBtn');
 addExpensesBtn.addEventListener('click', addExpense);
 
 function addIncome() {
+  const typeSection = document.querySelector('#incomeType');
   const incomeInput = document.querySelector('#income');
   const descriptionInput = document.querySelector('#incomeDescription');
 
+  const category = typeSection.selectedOptions[0].text;
   const incomeValue = parseFloat(incomeInput.value);
   const descriptionValue = descriptionInput.value;
 
-  if (isNaN(incomeValue) || descriptionValue.trim() === '') {
-    alert('Vänligen ange ett giltigt belopp och en beskrivning.');
+  if (isNaN(incomeValue) || descriptionValue.trim() === '' || category === '') {
+    alert('Vänligen fyll i kategori, belopp och beskrivning.');
     return;
   }
 
   myData.push({
     type: 'income',
+    category: category,
     amount: incomeValue,
     description: descriptionValue,
   });
 
+  typeSection.value = '';
   incomeInput.value = '';
   descriptionInput.value = '';
 
   saveDataToLocalStorage();
   renderData();
+  updateBalance();
 }
 
 function addExpense() {
+  const expenseCategory = document.querySelector('#expenseType');
   const expenseInput = document.querySelector('#expenses');
   const descriptionInput = document.querySelector('#description');
 
+  const expenseCategoryValue = expenseCategory.selectedOptions[0].text;
   const expenseValue = parseFloat(expenseInput.value);
   const descriptionValue = descriptionInput.value;
 
-  if (isNaN(expenseValue) || descriptionValue.trim() === '') {
-    alert('Vänligen ange ett giltigt belopp och en beskrivning.');
+  if (isNaN(expenseValue) || descriptionValue.trim() === '' || expenseCategoryValue === '') {
+    alert('Vänligen ange ett giltigt belopp, kategori och en beskrivning.');
     return;
   }
 
   myData.push({
     type: 'expense',
+    category: expenseCategoryValue,
     amount: expenseValue,
     description: descriptionValue,
   });
@@ -88,26 +96,28 @@ function addExpense() {
 
   saveDataToLocalStorage();
   renderData();
+  updateBalance();
 }
-
-/***************************************************/
-/**************** SUMMERA INKOMST ******************/
-/***************************************************/
-
-
-
-
-
-/***************************************************/
-/***************** SUMMERA UTGIFT ******************/
-/***************************************************/
-
-
-
 
 /***************************************************/
 /*********** SUMMERA INKOMST OCH UTGIFT ************/
 /***************************************************/
+const balanceElement = document.querySelector('#balance');
+
+function updateBalance() {
+  const totalIncome = myData
+    .filter((item) => item.type === 'income')
+    .reduce((sum, item) => sum + item.amount, 0);
+
+  const totalExpenses = myData
+    .filter((item) => item.type === 'expense')
+    .reduce((sum, item) => sum + item.amount, 0);
+
+  const balance = totalIncome - totalExpenses;
+  balanceElement.textContent = `Totalt: ${balance.toLocaleString('sv-SE')} kr`;
+}
+
+updateBalance();
 
 
 
@@ -142,11 +152,17 @@ const dataHtmlContainer = document.querySelector('#data');
 
 function renderData() {
   let html = '';
-  myData.forEach((item) => {
+
+  myData.forEach((item, index) => {
+    const itemClass =
+    item.type === 'income' ? 'data-item income-item' : 'data-item expense-item';
+
+    const sign = item.type === 'income' ? '+' : '-';
+
     html += `
-      <div class="data-item">
-        <span>${item.description}: ${item.amount} kr</span>
-        <button class="delete-btn" data-id="${myData.indexOf(item)}">Ta bort</button>
+      <div class="${itemClass}">
+        <span> <strong>${item.category}</strong> ${sign} ${item.description}: ${item.amount.toLocaleString('sv-SE')} kr</span>
+        <button class="delete-btn" data-id="${index}">Ta bort</button>
       </div>
     `;
   });
@@ -159,22 +175,22 @@ function renderData() {
 /***************************************************/
 /******************* DELETE ITEM *******************/
 /***************************************************/
-const deleteButtons = document.querySelectorAll('.delete-btn');
-deleteButtons.forEach((btn) => {
-  btn.addEventListener('click', deleteItem);
+const dataHTMLContainer = document.querySelector('#data');
+dataHTMLContainer.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-btn')) {
+    const rowId = Number(e.target.dataset.id);
+
+    myData.splice(rowId, 1);
+
+    saveDataToLocalStorage();
+    renderData();
+    updateBalance();
+  }
 });
-
-function deleteItem(e) {
-  const rowId = Number(e.target.dataset.id);
-  myData.splice(rowId, 1);
-
-  saveDataToLocalStorage();
-  renderData();
-  loadDataFromLocalStorage();
-}
 
 loadDataFromLocalStorage();
 renderData();
+updateBalance();
 
 /***************************************************/
 /********************* DROPDOWN ********************/
