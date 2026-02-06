@@ -21,6 +21,8 @@ function checkInputConfirm(e) {
 
   myData.push({
     text: expensesInput.value,
+    amount: parseFloat(expensesInput.value),
+    type: 'expense',
   });
 
   expensesInput.value = '';
@@ -80,7 +82,7 @@ function addExpense() {
   const descriptionValue = descriptionInput.value;
 
   if (isNaN(expenseValue) || descriptionValue.trim() === '' || expenseCategoryValue === '') {
-    alert('Vänligen ange ett giltigt belopp, kategori och en beskrivning.');
+    alert('Vänligen fyll i kategori, belopp och beskrivning.');
     return;
   }
 
@@ -91,6 +93,7 @@ function addExpense() {
     description: descriptionValue,
   });
 
+  expenseCategory.value = '';
   expenseInput.value = '';
   descriptionInput.value = '';
 
