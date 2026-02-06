@@ -3,6 +3,18 @@
         {
             "text": "Lön",
             "value": "salary"
+        },
+        {
+            "text": "Bidrag",
+            "value": "benefits"
+        },
+        {
+            "text": "Lån",
+            "value": "loan"
+        },
+        {
+            "text": "Övrigt",
+            "value": "other"
         }
     ],
     "expenses": [
