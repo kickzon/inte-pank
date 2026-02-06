@@ -161,7 +161,7 @@ function renderData() {
 
     html += `
       <div class="${itemClass}">
-        <span> <strong>${item.category}</strong> ${sign} ${item.description}: ${item.amount.toLocaleString('sv-SE')} kr</span>
+        <span> <strong>${item.category} - </strong> ${item.description}: ${sign} ${item.amount.toLocaleString('sv-SE')} kr</span>
         <button class="delete-btn" data-id="${index}">Ta bort</button>
       </div>
     `;
