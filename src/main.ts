@@ -97,6 +97,7 @@ function addExpense() {
 
 
 
+
 /***************************************************/
 /***************** SUMMERA UTGIFT ******************/
 /***************************************************/
@@ -155,14 +156,17 @@ function renderData() {
   dataHtmlContainer.innerHTML = html;
 }
 
-document.querySelectorAll('.delete-btn').forEach((btn) => {
+/***************************************************/
+/******************* DELETE ITEM *******************/
+/***************************************************/
+const deleteButtons = document.querySelectorAll('.delete-btn');
+deleteButtons.forEach((btn) => {
   btn.addEventListener('click', deleteItem);
 });
 
 function deleteItem(e) {
-  const id = Number(e.target.dataset.id);
-
-  myData.splice(id, 1);
+  const rowId = Number(e.target.dataset.id);
+  myData.splice(rowId, 1);
 
   saveDataToLocalStorage();
   renderData();
