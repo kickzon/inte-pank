@@ -35,12 +35,12 @@
             "value": "entertainment"
         },
         {
-            "text": "Övrigt",
-            "value": "other"
-        },
-        {
             "text": "Sparande",
             "value": "savings"
+        },
+         {
+            "text": "Övrigt",
+            "value": "other"
         }
     ]
 }
