@@ -137,22 +137,20 @@ updateBalance();
 /****************** LOCAL STORAGE ******************/
 /***************************************************/
 
-function saveDataToLocalStorage() {
+function saveDataToLocalStorage(): void {
   localStorage.setItem('budgetAppData', JSON.stringify(myData));
 }
 
-function loadDataFromLocalStorage() {
+function loadDataFromLocalStorage(): void {
   const data = localStorage.getItem('budgetAppData');
-  if (data) {
+  if (!data) 
+    return;
+  try {
     myData = JSON.parse(data);
+  } catch (error) {
+    console.error('Error loading data from localStorage:', error);
+    myData = [];
   }
-}
-
-function deleteDataFromLocalStorage() {
-  localStorage.removeItem('budgetAppData');
-
-  myData = [];
-  renderData();
 }
 
 loadDataFromLocalStorage();
@@ -221,3 +219,9 @@ if (expenseCategories) {
     expenseCategories.innerHTML += `<option value="${category.value}">${category.text}</option>`;
   });
 }
+
+/***************************************************/
+/****************** EXTRA FUNKTION *****************/
+/***************************************************/
+
+
