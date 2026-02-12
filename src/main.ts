@@ -1,28 +1,49 @@
-// @ts-nocheck
-
 import './style.css';
 import categories from './categories.json';
 
-let myData = [];
+
+/***************************************************/
+/******************** TYPES ************************/
+/***************************************************/
+
+type TransactionType = 'income' | 'expense';
+
+interface Transaction {
+  type: TransactionType;
+  category: string;
+  amount: number;
+  description: string;
+}
+
+let myData: Transaction[] = [];
+
+/***************************************************/
+/******************* SPARMÅL ************************/
+/***************************************************/
+
+const SAVINGS_GOAL_KEY = 'budgetSavingsGoal';
+let savingsGoal: number = Number(localStorage.getItem(SAVINGS_GOAL_KEY)) || 10000;
+
 /***************************************************/
 /********* LÄGG TILL INK OCH UTG ENTER *************/
 /***************************************************/
 
-const incomeInput = document.querySelector('#income');
-const expensesInput = document.querySelector('#expenses');
+const incomeInput = document.querySelector<HTMLInputElement>('#income')!;
+const expensesInput = document.querySelector<HTMLInputElement>('#expenses')!;
+const savingsContainer = document.querySelector<HTMLDivElement>('#savingsGoalContainer');
+
 incomeInput.addEventListener('keydown', checkInputConfirm);
 expensesInput.addEventListener('keydown', checkInputConfirm);
-const ENTER_KEY = 13;
 
-function checkInputConfirm(e) {
-  if (e.keyCode !== ENTER_KEY) {
-    return;
-  }
+function checkInputConfirm(e: KeyboardEvent): void {
+  if (e.key !== 'Enter') return;
+  
 
   myData.push({
-    text: expensesInput.value,
-    amount: parseFloat(expensesInput.value),
     type: 'expense',
+    category: 'Övrigt',
+    description: expensesInput.value,
+    amount: parseFloat(expensesInput.value),
   });
 
   expensesInput.value = '';
@@ -31,21 +52,20 @@ function checkInputConfirm(e) {
   renderData();
 }
 
-
 /***************************************************/
 /*************** LÄGG TILL KNAPPARNA ***************/
 /***************************************************/
 
-const addIncomeBtn = document.querySelector('#addIncomeBtn');
+const addIncomeBtn = document.querySelector<HTMLButtonElement>('#addIncomeBtn')!;
 addIncomeBtn.addEventListener('click', addIncome);
 
-const addExpensesBtn = document.querySelector('#addExpensesBtn');
+const addExpensesBtn = document.querySelector<HTMLButtonElement>('#addExpensesBtn')!;
 addExpensesBtn.addEventListener('click', addExpense);
 
-function addIncome() {
-  const typeSection = document.querySelector('#incomeType');
-  const incomeInput = document.querySelector('#income');
-  const descriptionInput = document.querySelector('#incomeDescription');
+function addIncome(): void {
+  const typeSection = document.querySelector<HTMLSelectElement>('#incomeType')!;
+  const incomeInput = document.querySelector<HTMLInputElement>('#income')!;
+  const descriptionInput = document.querySelector<HTMLInputElement>('#incomeDescription')!;
 
   const category = typeSection.selectedOptions[0].text;
   const incomeValue = parseFloat(incomeInput.value);
@@ -72,10 +92,10 @@ function addIncome() {
   updateBalance();
 }
 
-function addExpense() {
-  const expenseCategory = document.querySelector('#expenseType');
-  const expenseInput = document.querySelector('#expenses');
-  const descriptionInput = document.querySelector('#description');
+function addExpense(): void {
+  const expenseCategory = document.querySelector<HTMLSelectElement>('#expenseType')!;
+  const expenseInput = document.querySelector<HTMLInputElement>('#expenses')!;
+  const descriptionInput = document.querySelector<HTMLInputElement>('#description')!;
 
   const expenseCategoryValue = expenseCategory.selectedOptions[0].text;
   const expenseValue = parseFloat(expenseInput.value);
@@ -100,14 +120,15 @@ function addExpense() {
   saveDataToLocalStorage();
   renderData();
   updateBalance();
+  renderSavingsGoal();
 }
 
 /***************************************************/
 /*********** SUMMERA INKOMST OCH UTGIFT ************/
 /***************************************************/
-const balanceElement = document.querySelector('#balance');
+const balanceElement = document.querySelector<HTMLDivElement>('#balance')!;
 
-function updateBalance() {
+function updateBalance(): void {
   const totalIncome = myData
     .filter((item) => item.type === 'income')
     .reduce((sum, item) => sum + item.amount, 0);
@@ -129,9 +150,21 @@ function updateBalance() {
   }
 }
 
-updateBalance();
+/***************************************************/
+/**************** RÄKNA SPARANDE ********************/
+/***************************************************/
 
+function calculateSavings(): number {
+  const totalIncome = myData
+    .filter((item) => item.type === 'income')
+    .reduce((sum, item) => sum + item.amount, 0);
 
+  const totalExpenses = myData
+    .filter((item) => item.type === 'expense')
+    .reduce((sum, item) => sum + item.amount, 0);
+
+  return totalIncome - totalExpenses;
+}
 
 /***************************************************/
 /****************** LOCAL STORAGE ******************/
@@ -143,10 +176,10 @@ function saveDataToLocalStorage(): void {
 
 function loadDataFromLocalStorage(): void {
   const data = localStorage.getItem('budgetAppData');
-  if (!data) 
-    return;
+  if (!data) return;
+
   try {
-    myData = JSON.parse(data);
+    myData = JSON.parse(data) as Transaction[];
   } catch (error) {
     console.error('Error loading data from localStorage:', error);
     myData = [];
@@ -158,14 +191,14 @@ loadDataFromLocalStorage();
 /***************************************************/
 /******************** INNER HTML *******************/
 /***************************************************/
-const dataHtmlContainer = document.querySelector('#data');
+const dataHtmlContainer = document.querySelector<HTMLDivElement>('#data')!;
 
-function renderData() {
+function renderData(): void {
   let html = '';
 
   myData.forEach((item, index) => {
     const itemClass =
-    item.type === 'income' ? 'data-item income-item' : 'data-item expense-item';
+      item.type === 'income' ? 'data-item income-item' : 'data-item expense-item';
 
     const sign = item.type === 'income' ? '+' : '-';
 
@@ -177,51 +210,128 @@ function renderData() {
     `;
   });
 
-  html += '';
-
   dataHtmlContainer.innerHTML = html;
+}
+
+/***************************************************/
+/**************** VISA SPARMÅL **********************/
+/***************************************************/
+
+
+function renderSavingsGoal(): void {
+  if (!savingsContainer) return;
+  const currentSavings = calculateSavings();
+  const progress = Math.max(0, Math.min(100, (currentSavings / savingsGoal) * 100));
+
+  let message = '';
+
+  if (progress >= 100) {
+    message = '🎉 Du har nått ditt sparmål!';
+  } else if (progress >= 75) {
+    message = '🔥 Nästan där!';
+  } else if (progress >= 50) {
+    message = '💪 Halvvägs!';
+  } else {
+    message = '🌱 Bra start!';
+  }
+
+  savingsContainer.innerHTML = `
+    <div class="savings-box">
+      <h3>Sparmål: ${savingsGoal.toLocaleString('sv-SE')} kr</h3>
+
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:${progress}%"></div>
+      </div>
+
+      <p>${currentSavings.toLocaleString('sv-SE')} kr sparat (${progress.toFixed(1)}%)</p>
+      <p>${message}</p>
+
+      <button id="changeGoalBtn">Ändra mål</button>
+    </div>
+  `;
 }
 
 /***************************************************/
 /******************* DELETE ITEM *******************/
 /***************************************************/
-const dataHTMLContainer = document.querySelector('#data');
-dataHTMLContainer.addEventListener('click', (e) => {
-  if (e.target.classList.contains('delete-btn')) {
-    const rowId = Number(e.target.dataset.id);
+const dataHTMLContainer = document.querySelector<HTMLDivElement>('#data')!;
+dataHTMLContainer.addEventListener('click', (e: MouseEvent) => {
+  const target = e.target as HTMLElement;
+
+  if (target.classList.contains('delete-btn')) {
+    const rowId = Number(target.dataset.id);
 
     myData.splice(rowId, 1);
 
     saveDataToLocalStorage();
     renderData();
     updateBalance();
+    renderSavingsGoal();
   }
 });
-
-loadDataFromLocalStorage();
-renderData();
-updateBalance();
 
 /***************************************************/
 /********************* DROPDOWN ********************/
 /***************************************************/
 
-const incomecategories = document.querySelector('#incomeType');
-if (incomecategories) {
-  categories.income.forEach((category) => {
-    incomecategories.innerHTML += `<option value="${category.value}">${category.text}</option>`;
-  });
-}
+function initCategories(): void {
 
-const expenseCategories = document.querySelector('#expenseType');
-if (expenseCategories) {
-  categories.expenses.forEach((category) => {
-    expenseCategories.innerHTML += `<option value="${category.value}">${category.text}</option>`;
+  const incomeSelect = document.querySelector<HTMLSelectElement>('#incomeType')!;
+  const expenseSelect = document.querySelector<HTMLSelectElement>('#expenseType')!;
+
+  incomeSelect.innerHTML = '<option value="" disabled selected>Välj kategori</option>';
+  expenseSelect.innerHTML = '<option value="" disabled selected>Välj kategori</option>';
+
+  categories.income.forEach((cat) => {
+    const opt = document.createElement('option');
+    opt.value = cat.value;
+    opt.textContent = cat.text;
+    incomeSelect.appendChild(opt);
+  });
+
+  categories.expenses.forEach((cat) => {
+    const opt = document.createElement('option');
+    opt.value = cat.value;
+    opt.textContent = cat.text;
+    expenseSelect.appendChild(opt);
   });
 }
 
 /***************************************************/
-/****************** EXTRA FUNKTION *****************/
+/**************** ÄNDRA SPARMÅL *********************/
 /***************************************************/
+if (savingsContainer) {
+savingsContainer.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement;
+
+  if (target.id === 'changeGoalBtn') {
+    const newGoal = prompt('Ange nytt sparmål (kr):');
+
+    if (!newGoal) return;
+
+    const parsed = Number(newGoal);
+    if (isNaN(parsed) || parsed <= 0) {
+      alert('Ogiltigt belopp');
+      return;
+    }
+
+    savingsGoal = parsed;
+    localStorage.setItem(SAVINGS_GOAL_KEY, String(parsed));
+    renderSavingsGoal();
+  }
+});
+}
+/***************************************************/
+/******************** INIT APP *********************/
+/***************************************************/
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  initCategories();
+  loadDataFromLocalStorage();
+  renderData();
+  updateBalance();
+  renderSavingsGoal();
+});
 
 
