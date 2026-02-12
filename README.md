@@ -35,12 +35,7 @@ Applikationen innehåller följande funktioner:
 	•	Totala utgifter
 	•	Nuvarande balans
 	•	Enkel och tydlig översikt för användaren
-
-(Valfritt beroende på implementation:)
-
-	•	Spara data lokalt i webbläsaren
-	•	Visa historik över inlagda poster
-	•	Jämförelse mellan olika månader
+	•	Sparmålsbarometer
 
 ---
 
