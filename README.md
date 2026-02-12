@@ -43,8 +43,7 @@ Applikationen innehåller följande funktioner:
 
 	•	HTML – struktur
 	•	CSS – layout och styling
-	•	JavaScript – logik, DOM-manipulation och händelsehantering
-    •	TypeScript – 
+    •	TypeScript – logik, DOM-manipulation och händelsehantering
 
 
 Inga externa ramverk eller bibliotek används.
