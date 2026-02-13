@@ -66,6 +66,12 @@ Projektet är utformat för att visa förståelse för grundläggande webbutveck
 
 ---
 
+### 🦼 Tillgänglighets granskning
+
+![Inte pank](/inte_pank.png)
+
+---
+
 ### ✍️ Författare
 
 Skapad som en del av en inlämningsuppgift inom vår JavaScript & agila kurs av mig **Chiara Jukkola**
