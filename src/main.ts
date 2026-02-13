@@ -90,6 +90,7 @@ function addIncome(): void {
   saveDataToLocalStorage();
   renderData();
   updateBalance();
+  renderSavingsGoal();
 }
 
 function addExpense(): void {
