@@ -1,21 +1,6 @@
 import './style.css';
 import categories from './categories.json';
-
-
-/***************************************************/
-/******************** TYPES ************************/
-/***************************************************/
-
-type TransactionType = 'income' | 'expense';
-
-interface Transaction {
-  type: TransactionType;
-  category: string;
-  amount: number;
-  description: string;
-}
-
-let myData: Transaction[] = [];
+import { myData, type Transaction } from './models';
 
 /***************************************************/
 /******************* SPARMÅL ************************/
@@ -180,10 +165,12 @@ function loadDataFromLocalStorage(): void {
   if (!data) return;
 
   try {
-    myData = JSON.parse(data) as Transaction[];
+    const loadedData = JSON.parse(data) as Transaction[];
+    myData.length = 0;
+    myData.push(...loadedData);
   } catch (error) {
     console.error('Error loading data from localStorage:', error);
-    myData = [];
+    myData.length = 0;
   }
 }
 
