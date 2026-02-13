@@ -2,6 +2,7 @@
 
 
 # INTE PANK
+**- För dig som vill ha råd med mer än nudlar -**
 
 ## Budget App
 
@@ -68,7 +69,10 @@ Projektet är utformat för att visa förståelse för grundläggande webbutveck
 
 ### 🦼 Tillgänglighets granskning
 
+Desktop verison
 ![Inte pank](/inte_pank.png)
+Mobil version
+![Inte pank mobil](/inte_pank_mobile.png)
 
 ---
 
