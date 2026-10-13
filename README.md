@@ -1,81 +1,51 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/fEntiP9j)
+# Inte Pank 💸
 
+> För dig som vill ha råd med mer än nudlar.
 
-# INTE PANK
-**- För dig som vill ha råd med mer än nudlar -**
+Inte Pank är en lättsam budgetapp som ger en snabb överblick över inkomster, utgifter, saldo och sparmål. Projektet kombinerar ett lekfullt uttryck med ett enkelt och tillgängligt gränssnitt.
 
-## Budget App
+## Funktioner
 
-### 📌 Beskrivning
+- Registrera inkomster och utgifter efter kategori
+- Se saldo, totalsummor och spargrad direkt
+- Följ ett personligt sparmål med visuell förloppsindikator
+- Ta bort enskilda transaktioner eller rensa hela listan
+- Spara data lokalt i webbläsaren
+- Responsiv layout för mobil och desktop
+- Formulärvalidering med tydliga felmeddelanden
 
-Detta projekt är en enkel budget-app där användaren kan registrera inkomster och utgifter och få en tydlig översikt över sin ekonomiska balans. Appen är byggd med HTML, CSS och JavaScript och syftar till att repetera och tillämpa grundläggande webbkoncept såsom DOM-manipulation, händelsehantering, datastrukturer och enkel logik.
+## Teknik
 
-Uppgiften är mindre vägledd än tidigare inlämningar och är tänkt att uppmuntra självständigt problemlösande samt återanvändning av tidigare kunskaper.
+- TypeScript
+- HTML och CSS
+- Vite
+- Web Storage API
 
----
+Projektet använder inga gränssnittsramverk. Det är ett medvetet val för att visa förståelse för DOM-manipulation, händelsehantering, datamodellering och responsiv CSS.
 
-### 🎯 Syfte med uppgiften
+## Kom igång
 
-Syftet med uppgiften är att:
+```bash
+npm install
+npm run dev
+```
 
-	•	Repetera grundläggande JavaScript-koncept
-	•	Träna på att strukturera kod och logik
-	•	Koppla ihop HTML-gränssnitt med JavaScript-funktionalitet
-	•	Skapa en fungerande applikation med verklig användarnytta
+Skapa en produktionsversion med:
 
----
+```bash
+npm run build
+```
 
-### ⚙️ Funktionalitet
+## Design och tillgänglighet
 
-Applikationen innehåller följande funktioner:
+Den varma beige och mörkgröna färgpaletten ger appen en egen identitet, medan grönt och rött gör transaktionstyperna lätta att skilja åt. Rubriktypsnittet Bungee används sparsamt tillsammans med DM Sans för bättre läsbarhet.
 
-	•	Möjlighet att lägga till inkomster
-	•	Möjlighet att lägga till utgifter
-	•	Visning av:
-	•	Totala inkomster
-	•	Totala utgifter
-	•	Nuvarande balans
-	•	Enkel och tydlig översikt för användaren
-	•	Sparmålsbarometer
+Gränssnittet har semantiska formulärfält, synliga fokusmarkeringar, statusmeddelanden och stöd för reducerad rörelse. Layouten anpassas från en tvådelad dashboard till ett sammanhållet mobilflöde.
 
----
+## Bakgrund
 
-### 🛠️ Tekniker som används
+Projektet började som en övning i grundläggande JavaScript och har vidareutvecklats till ett mer komplett portfolio-case med fokus på användarupplevelse, visuell hierarki och robust TypeScript-logik.
 
-	•	HTML – struktur
-	•	CSS – layout och styling
-    •	TypeScript – logik, DOM-manipulation och händelsehantering
+## Skapare
 
-
-Inga externa ramverk eller bibliotek används.
-
----
-
-### 🚀 Hur man kör projektet
-
-	1.	Klona eller ladda ner projektet
-	2.	Öppna index.html i en webbläsare
-	3.	Börja lägga in inkomster och utgifter
-
-Ingen installation eller server krävs.
-
----
-
-### 🧠 Reflektion
-
-Projektet är utformat för att visa förståelse för grundläggande webbutveckling och hur HTML, CSS och JavaScript samverkar. Fokus ligger på funktionalitet och logik snarare än avancerad design.
-
----
-
-### 🦼 Tillgänglighets granskning
-
-Desktop verison
-![Inte pank](/inte_pank.png)
-Mobil version
-![Inte pank mobil](/inte_pank_mobile.png)
-
----
-
-### ✍️ Författare
-
-Skapad som en del av en inlämningsuppgift inom vår JavaScript & agila kurs av mig **Chiara Jukkola**
+Skapad av **Chiara Jukkola**.
